@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlimited Health - Day 1</title>
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/vitalismf/vb-schedule-css@main/schedule.css">
+    <script src="https://cdn.jsdelivr.net/gh/vitalismf/vb-schedule-css@main/schedule-core.js"></script>
+</head>
+<body>
+    <div class="vitalist-schedule-tabs">
+        <div class="tab-nav">
+            <button class="tab-button active" data-tab="day1">April 5th</button>
+            <button class="tab-button" data-tab="day2">April 6th</button>
+            <button class="tab-button" data-tab="day3">April 7th</button>
+        </div>
+
+        <div class="tab-pane active" id="day1">
+            <div class="vitalist-schedule">
+                <div class="schedule-container" id="schedule-container-1"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="day2">
+            <div class="vitalist-schedule">
+                <div class="schedule-container" id="schedule-container-2"></div>
+            </div>
+        </div>
+
+        <div class="tab-pane" id="day3">
+            <div class="vitalist-schedule">
+                <div class="schedule-container" id="schedule-container-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="vitalist-schedule-popup popup-overlay"></div>
+
+    <script>
+       // Conference schedule data structure
+       const conferenceSchedule = {
+            day1: {
+                date: 'April 5th',
+                schedule: [
+            {
+                time: '7:00 AM',
+                events: [{
+                    type: 'ACTIVITY',
+                    location: 'Main Stage',
+                    title: 'Meditation'
+                }]
+            },
+            {
+                time: '8:00 AM',
+                events: [{
+                    type: 'SOCIAL',
+                    location: 'Main Stage',
+                    title: 'Registration starts, Sauna and Cold Plunge, Coffee and light breakfast'
+                }]
+            },
+            {
+                time: '8:30 AM',
+                events: [
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Main Stage',
+                        title: 'Ecstatic Dance, Sauna and Cold Plunge, Coffee and light breakfast'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Ecstatic Dance'
+                    }
+                ]
+            },
+            {
+                time: '9:00 AM',
+                events: [
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Main Stage',
+                        title: 'Ecstatic Dance, Sauna and Cold Plunge, Coffee and light breakfast, Exploratorium Opens'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Ecstatic Dance'
+                    }
+                ]
+            },
+            {
+                time: '10:00 AM',
+                events: [{
+                    type: 'TALK',
+                    location: 'Main Stage',
+                    title: 'Brief Welcome Remarks',
+                    speaker: 'Adam Gries'
+                }]
+            },
+            {
+                time: '10:10 AM',
+                events: [{
+                    type: 'TALK',
+                    location: 'Main Stage',
+                    title: 'Longevity Intelligence: Understand the Major Risks In Your Health and Unlock Your Longevity Potential',
+                    speaker: 'Siim Land'
+                }]
+            },
+            {
+                time: '10:30 AM',
+                events: [{
+                    type: 'TALK',
+                    location: 'Main Stage',
+                    title: 'Longevity Intelligence: Understand the Major Risks In Your Health and Unlock Your Longevity Potential',
+                    speaker: 'Siim Land'
+                }]
+            },
+            {
+                time: '10:50 AM',
+                events: [{
+                    type: 'BREAK',
+                    location: 'Main Stage',
+                    title: 'Break'
+                }]
+            },
+            {
+                time: '11:10 AM',
+                events: [{
+                    type: 'TALK',
+                    location: 'Main Stage',
+                    title: 'Testosterone: The Driving Force …of what?',
+                    speaker: 'Joseph Everett'
+                }]
+            },
+            {
+                time: '11:30 AM',
+                events: [{
+                    type: 'NETWORKING',
+                    location: 'Main Stage',
+                    title: 'Lightning Networking x Exploration'
+                }]
+            },
+            {
+                time: '11:50 AM',
+                events: [{
+                    type: 'NETWORKING',
+                    location: 'Main Stage',
+                    title: 'Lightning Networking x Exploration'
+                }]
+            },
+            {
+                time: '12:10 PM',
+                events: [{
+                    type: 'NETWORKING',
+                    location: 'Main Stage',
+                    title: 'Lightning Networking x Exploration'
+                }]
+            },
+            {
+                time: '12:30 PM',
+                events: [{
+                    type: 'BREAK',
+                    location: 'Main Stage',
+                    title: 'Lunch'
+                }]
+            },
+            {
+                time: '1:30 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Fireside',
+                        speakers: ['Siim Land', 'Joseph Everett']
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Krav Maga (Self Defense)'
+                    }
+                ]
+            },
+            {
+                time: '1:50 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Fireside',
+                        speakers: ['Siim Land', 'Joseph Everett']
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Krav Maga (Self Defense)'
+                    }
+                ]
+            },
+            {
+                time: '2:10 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'The single most consequential piece of health data is missing in U.S. healthcare. Why?',
+                        speaker: 'Kian Sadhegi'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Krav Maga (Self Defense)'
+                    }
+                ]
+            },
+            {
+                time: '2:30 PM',
+                events: [{
+                    type: 'BREAK',
+                    location: 'Main Stage',
+                    title: 'Break'
+                }]
+            },
+            {
+                time: '2:50 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'How to suffer less',
+                        speaker: 'Orion Taraban'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Body Mind Method - neuroplasticity in action'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Indoor',
+                        title: 'HIIT'
+                    }
+                ]
+            },
+            {
+                time: '3:10 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Rejuvenation with Age-reversed Stem Cells (iPSCs): Science Meets Reality',
+                        speaker: 'Koji Tanabe'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Body Mind Method - neuroplasticity in action'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Indoor',
+                        title: 'HIIT'
+                    }
+                ]
+            },
+            {
+                time: '3:30 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Nutrition, Wearables and AI',
+                        speaker: 'Ari Tulla'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Body Mind Method - neuroplasticity in action'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Indoor',
+                        title: 'HIIT'
+                    }
+                ]
+            },
+            {
+                time: '3:50 PM',
+                events: [{
+                    type: 'BREAK',
+                    location: 'Main Stage',
+                    title: 'Break'
+                }]
+            },
+            {
+                time: '4:10 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'How to be in the 99.99% in HRV',
+                        speaker: 'Goktug Yilmaz'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Tap into Connection - ice breaker workshop (90 min)'
+                    }
+                ]
+            },
+            {
+                time: '4:30 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Banking Your Stem Cells',
+                        speaker: 'Dr. Drew Taylor'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Tap into Connection - ice breaker workshop (90 min)'
+                    }
+                ]
+            },
+            {
+                time: '4:50 PM',
+                events: [
+                    {
+                        type: 'TALK',
+                        location: 'Main Stage',
+                        title: 'Insights about Health, Wellness and Longevity Apps',
+                        speaker: 'Aykut Karaalioglu'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Tap into Connection - ice breaker workshop (90 min)'
+                    }
+                ]
+            },
+            {
+                time: '5:10 PM',
+                events: [
+                    {
+                        type: 'PITCH',
+                        location: 'Main Stage',
+                        title: 'Startup Showcase'
+                    },
+                    {
+                        type: 'ACTIVITY',
+                        location: 'Activation Area Outdoor',
+                        title: 'Tap into Connection - ice breaker workshop (90 min)'
+                    }
+                ]
+            },
+            {
+                time: '5:40 PM',
+                events: [{
+                    type: 'SOCIAL',
+                    location: 'Main Stage',
+                    title: 'Open Hang out / Music / Show'
+                }]
+            },
+            {
+                time: '6:30 PM',
+                events: [{
+                    type: 'ACTIVITY',
+                    location: 'Main Stage',
+                    title: 'Clear Out'
+                }]
+            },
+            {
+                time: '8:30 PM',
+                events: [{
+                    type: 'SOCIAL',
+                    location: 'Main Stage',
+                    title: 'Afterparty'
+                }]
+            }
+                ]
+            },
+            day2: {
+                date: 'April 6th',
+                schedule: [
+                    {
+                        time: '7:00 AM',
+                        events: [{
+                            type: 'ACTIVITY',
+                            location: 'Main Stage',
+                            title: 'Meditation'
+                        }]
+                    },
+                    {
+                        time: '8:00 AM',
+                        events: [{
+                            type: 'SOCIAL',
+                            location: 'Main Stage',
+                            title: 'Registration starts, Sauna and Cold Plunge, Coffee and light breakfast'
+                        }]
+                    },
+                    {
+                        time: '8:30 AM',
+                        events: [
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Main Stage',
+                                title: 'Sauna and Cold Plunge, Coffee and light breakfast'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Wim Hofman method breathing'
+                            }
+                        ]
+                    },
+                    {
+                        time: '9:00 AM',
+                        events: [
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Main Stage',
+                                title: 'Sauna and Cold Plunge, Coffee and light breakfast, Exploratorium Opens'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Wim Hofman method breathing'
+                            }
+                        ]
+                    },
+                    {
+                        time: '10:10 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Chris Mirabile',
+                            speaker: 'Chris Mirabile'
+                        }]
+                    },
+                    {
+                        time: '10:30 AM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The four pillars of healthspan: energy, information, structure, & purpose. A blueprint for vitality and longevity',
+                                speaker: 'Molly Maloof'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '11:00 AM',
+                        events: [
+                            {
+                                type: 'BREAK',
+                                location: 'Main Stage',
+                                title: 'Break'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '11:10 AM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The State of Longevity Biotech',
+                                speaker: 'Nathan Cheng'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '11:30 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'The Future is Now: Cutting-Edge Advancements in Cell and Gene Therapies',
+                            speaker: 'Adeel Khan'
+                        }]
+                    },
+                    {
+                        time: '12:00 PM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Chris + Adeel + Molly - Fireside',
+                            speakers: ['Chris Mirabile', 'Adeel Khan', 'Molly Maloof']
+                        }]
+                    },
+                    {
+                        time: '12:30 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Lunch'
+                        }]
+                    },
+                    {
+                        time: '1:30 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The mindful brain: how mindfulness rewires us for longevity',
+                                speaker: 'Virginia Gambardella'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Breathgasm: Regulate, Release, Rinse'
+                            }
+                        ]
+                    },
+                    {
+                        time: '1:50 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Longevity: Bright lights versus Reality',
+                                speaker: 'Joseph Everett'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Breathgasm: Regulate, Release, Rinse'
+                            }
+                        ]
+                    },
+                    {
+                        time: '2:10 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'We won\'t solve aging in time unless we do this',
+                                speaker: 'Adam Gries'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Breathgasm: Regulate, Release, Rinse'
+                            }
+                        ]
+                    },
+                    {
+                        time: '2:30 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Break'
+                        }]
+                    },
+                    {
+                        time: '2:50 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Enhancing human intelligence',
+                                speaker: 'Chase Denecke'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Krav Maga (Self Defense)'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:10 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Overcoming Age Limitations in Pregnancy: Advancing Reproductive Medicine with iPS Cell-Derived Oocytes',
+                                speaker: 'Kazuma Kishida'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Krav Maga (Self Defense)'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:30 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The biggest longevity clinic in the world',
+                                speaker: 'Clara Fernandez'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Krav Maga (Self Defense)'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:50 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Break'
+                        }]
+                    },
+                    {
+                        time: '4:10 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The Brain\'s Primacy in Considerations of Antiaging and Life Extension: Strategies for Neuroprotection and Health',
+                                speaker: 'Paul Kiesow'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Animal Flow'
+                            }
+                        ]
+                    },
+                    {
+                        time: '4:30 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Consumer Diagnostics and the Self-Testing Ecosystem: Where, How, and When',
+                                speaker: 'Laila Zemrani'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Animal Flow'
+                            }
+                        ]
+                    },
+                    {
+                        time: '4:50 PM',
+                        events: [
+                            {
+                                type: 'SOCIAL',
+                                location: 'Main Stage',
+                                title: 'Charity Showcase / Auction'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Outdoor',
+                                title: 'Animal Flow'
+                            }
+                        ]
+                    },
+                    {
+                        time: '5:30 PM',
+                        events: [{
+                            type: 'SOCIAL',
+                            location: 'Main Stage',
+                            title: 'Open Hang out / Music / Show'
+                        }]
+                    },
+                    {
+                        time: '6:30 PM',
+                        events: [{
+                            type: 'ACTIVITY',
+                            location: 'Main Stage',
+                            title: 'Clear Out'
+                        }]
+                    }
+                ]
+            },
+            day3: {
+                date: 'April 7th',
+                schedule: [
+                    {
+                        time: '7:00 AM',
+                        events: [{
+                            type: 'ACTIVITY',
+                            location: 'Main Stage',
+                            title: 'Meditation'
+                        }]
+                    },
+                    {
+                        time: '8:00 AM',
+                        events: [{
+                            type: 'SOCIAL',
+                            location: 'Main Stage',
+                            title: 'Registration starts, Sauna and Cold Plunge, Coffee and light breakfast'
+                        }]
+                    },
+                    {
+                        time: '8:30 AM',
+                        events: [
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Main Stage',
+                                title: 'Sauna and Cold Plunge, Coffee and light breakfast'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Wim Hoff method breathing'
+                            }
+                        ]
+                    },
+                    {
+                        time: '9:00 AM',
+                        events: [
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Main Stage',
+                                title: 'Sauna and Cold Plunge, Coffee and light breakfast, Exploratorium Opens'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Wim Hoff method breathing'
+                            }
+                        ]
+                    },
+                    {
+                        time: '10:00 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Brief Welcome Remarks'
+                        }]
+                    },
+                    {
+                        time: '10:10 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'The Longevity Revolution: Why Tackling Aging is the Next Frontier in Health',
+                            speaker: 'David Barzilai'
+                        }]
+                    },
+                    {
+                        time: '10:30 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'What will longevity clinics look like in 10 years?',
+                            speaker: 'Adam Bataineh'
+                        }]
+                    },
+                    {
+                        time: '10:50 AM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Break'
+                        }]
+                    },
+                    {
+                        time: '11:10 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'The Silent Measurement Crisis For Biotechnology',
+                            speaker: 'Parmita Mishra'
+                        }]
+                    },
+                    {
+                        time: '11:30 AM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Overcoming 3 key challenges to streamlining a personal longevity system',
+                            speaker: 'Jacob Peters'
+                        }]
+                    },
+                    {
+                        time: '11:50 AM',
+                        events: [{
+                            type: 'NETWORKING',
+                            location: 'Main Stage',
+                            title: 'Lightning Networking x Exploration'
+                        }]
+                    },
+                    {
+                        time: '12:10 PM',
+                        events: [{
+                            type: 'NETWORKING',
+                            location: 'Main Stage',
+                            title: 'Lightning Networking x Exploration'
+                        }]
+                    },
+                    {
+                        time: '12:30 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Lunch'
+                        }]
+                    },
+                    {
+                        time: '1:30 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Time-independent Plasticity of Human Aging',
+                                speaker: 'Irina Conboy'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Pilates'
+                            }
+                        ]
+                    },
+                    {
+                        time: '1:50 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'The economics and geopolitics of longevity',
+                                speaker: 'Mac Davis'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Pilates'
+                            }
+                        ]
+                    },
+                    {
+                        time: '2:10 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Challenges to age reversal caused by damage in aged cell\'s nuclear infrastructure',
+                                speaker: 'Akshay Sanghavi'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Pilates'
+                            }
+                        ]
+                    },
+                    {
+                        time: '2:30 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Break'
+                        }]
+                    },
+                    {
+                        time: '2:50 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Cryopreservation already works, we just need to scale up',
+                                speaker: 'Emil Kendziorra'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:10 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Top 10 Longevity Strategies Today',
+                                speaker: 'Christine Peterson'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:30 PM',
+                        events: [
+                            {
+                                type: 'TALK',
+                                location: 'Main Stage',
+                                title: 'Building a city for warp-speed drug development',
+                                speaker: 'Laurence Ion'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Meditation'
+                            }
+                        ]
+                    },
+                    {
+                        time: '3:50 PM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Combining Gene Therapies for Synergistic Longevity Gains',
+                            speakers: ['Anna Vakhrusheva', 'Ivan Morgunov']
+                        }]
+                    },
+                    {
+                        time: '4:10 PM',
+                        events: [{
+                            type: 'BREAK',
+                            location: 'Main Stage',
+                            title: 'Break'
+                        }]
+                    },
+                    {
+                        time: '4:30 PM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'FDA Approvals of Aging Therapies Have Started & More Are Coming Soon',
+                            speaker: 'Karl Pfleger'
+                        }]
+                    },
+                    {
+                        time: '4:50 PM',
+                        events: [{
+                            type: 'TALK',
+                            location: 'Main Stage',
+                            title: 'Creating Superhumanity',
+                            speaker: 'Leo Nissola'
+                        }]
+                    },
+                    {
+                        time: '5:10 PM',
+                        events: [
+                            {
+                                type: 'SOCIAL',
+                                location: 'Main Stage',
+                                title: 'Open Hang out / Music / Show'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Strength Training for Longevity'
+                            }
+                        ]
+                    },
+                    {
+                        time: '6:30 PM',
+                        events: [
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Main Stage',
+                                title: 'Clear Out'
+                            },
+                            {
+                                type: 'ACTIVITY',
+                                location: 'Activation Area Indoor',
+                                title: 'Strength Training for Longevity'
+                            }
+                        ]
+                    },
+                    {
+                        time: '8:30 PM',
+                        events: [{
+                            type: 'SOCIAL',
+                            location: 'Main Stage',
+                            title: 'Afterparty'
+                        }]
+                    }
+                ]
+            }
+        };
+    </script>
+</body>
+</html>
